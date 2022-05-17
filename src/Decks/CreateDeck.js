@@ -1,14 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DeckForm from "./DeckForm";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { createDeck } from "../utils/api";
 
 function CreateDeck() {
-  const [decks, setDecks] = useState([]);
-  const [deck, setDeck] = useState([]);
-
-  async function handleCreateDeck() {
-    // await createDeck();
+    const history = useHistory()
+ 
+    function handleSubmit(deck) {
+        const abortController = new AbortController();
+    
+        async function callCreateDeck() {
+          try {
+            const deckInfo = await createDeck(deck, abortController.signal);
+            history.push(`/decks/${deckInfo.id}`);
+          } catch (err) {
+            if (err.name === "AbortError") {
+              console.info("aborted");
+            } else {
+              throw err;
+            }
+          }
+        }
+        callCreateDeck();
+    
+        return () => {
+          abortController.abort();
+        };
+      }
+  
+  function handleCancel() {
+    history.push("/");
   }
 
   return (
@@ -28,7 +49,7 @@ function CreateDeck() {
         </div>
       </div>
       <h2>Create Deck</h2>
-      <DeckForm handleFunction={handleCreateDeck()} />
+      <DeckForm handleSubmit={handleSubmit} handleCancel={handleCancel} />
     </div>
   );
 }

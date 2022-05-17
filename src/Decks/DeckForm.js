@@ -1,38 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
+function DeckForm({ handleSubmit, handleCancel, deck }) {
+  const [deckInfo, setDeckInfo] = useState(deck);
 
-function DeckForm({
-  name = "Deck Name",
-  description = "Brief description of the deck",
-  handleFunction
-}) {
+  useEffect(() => {
+    setDeckInfo(deck);
+  }, [deck]);
+
+  const updateForm = (event) => {
+    const { name, value } = event.target;
+    setDeckInfo({ ...deckInfo, [name]: value });
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    handleSubmit(deckInfo);
+  };
+
   return (
-    <form>
+    <form onSubmit={submit}>
       <div className="form-group">
-        <label htmlFor="DeckName">Name</label>
+        <label htmlFor="name">Name</label>
         <input
           type="text"
           className="form-control"
-          id="DeckName"
-          placeholder={`${name}`}
+          id="name"
+          name="name"
+          placeholder="Deck Name"
+          value={deckInfo?.name || ""}
+          onChange={updateForm}
+          required
         ></input>
       </div>
       <div className="form-group">
-        <label htmlFor="DeckDescription">Description</label>
+        <label htmlFor="description">Description</label>
         <textarea
           rows="4"
           className="form-control"
-          id="DeckDescription"
-          placeholder={`${description}`}
+          id="description"
+          name="description"
+          placeholder="Brief description of the deck"
+          value={deckInfo?.description || ""}
+          onChange={updateForm}
+          required
         />
       </div>
-      <Link to="/" className="btn btn-secondary">
+      <button className="btn btn-secondary my-2" onClick={handleCancel}>
         Cancel
-      </Link>
-      <Link to="/" className="btn btn-primary ml-2" onClick={() => handleFunction()} >
+      </button>
+      <button type="submit" className="btn btn-primary my-2">
         Submit
-      </Link>
+      </button>
     </form>
   );
 }
