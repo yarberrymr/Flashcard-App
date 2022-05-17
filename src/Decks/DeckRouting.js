@@ -5,6 +5,7 @@ import CreateDeck from "./CreateDeck"
 import DeckView from "./DeckView"
 import EditDeck from "./EditDeck"
 import AddCard from "../Cards/AddCard"
+import EditCard from "../Cards/EditCard"
 
 function DeckRouting() {
     return (
@@ -17,6 +18,9 @@ function DeckRouting() {
           </Route>
           <Route exact={true} path="/decks/:deckId/cards/new">
             <AddCard />
+          </Route>
+          <Route exact={true} path="/decks/:deckId/cards/:cardId/edit">
+            <EditCard />
           </Route>
           <Route path={"/decks/:deckId/study"} exact={true}>
             <StudyDeck />
