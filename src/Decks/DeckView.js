@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import { Link, useParams, useRouteMatch, useHistory } from "react-router-dom";
 import { readDeck, deleteCard, deleteDeck, listDecks } from "../utils/api/index";
 import DeckViewCard from "./DeckViewCard";
 
 function DeckView() {
+  const history = useHistory();
   const { deckId } = useParams();
   const [deck, setDeck] = useState(null);
   const [cards, setCards] = useState(null);
@@ -41,7 +42,6 @@ function DeckView() {
         const _deck = await readDeck(deckId, abortController.signal)
         setDeck(_deck);
         setCards(_deck.cards)
-       
     } 
     getDeck();
     return () => abortController.abort();
@@ -61,6 +61,7 @@ function DeckView() {
     ) {
       await deleteDeck(id);
       setDecks(() => decks.filter((deck) => deck.id !== id));
+      history.push("/")
     }
   }
 
