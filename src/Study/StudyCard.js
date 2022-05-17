@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function StudyCard({card, isFlipped, length, flipHandler, currentPosition, nextCardHandler}) {
 

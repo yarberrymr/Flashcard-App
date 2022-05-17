@@ -61,7 +61,7 @@ const nextCardHandler = () =>{
             <Link to="/">Home</Link>
           </li>
           <li className="breadcrumb-item">
-            <Link to="/decks/:deckId">{deck.name}</Link>
+            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             Study
