@@ -17,7 +17,7 @@ function DeckViewCard({deck, card, handleDeleteCard}) {
           </div>
           <button
             className='btn btn-danger delete-deck col-1'
-            onClick={() => handleDeleteCard(deck.id)}
+            onClick={() => handleDeleteCard(card.id)}
           ><span>&#x1F5D1;</span>
           </button>
         </div>
