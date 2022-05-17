@@ -15,9 +15,6 @@ function Layout() {
           <Route exact={true} path="/">
            <Home />
           </Route> 
-          <Route exact={true} path="/decks/new">
-            <CreateDeck />
-          </Route>
           <Route path='/decks/:deckId'>
             <DeckRouting />
           </Route>

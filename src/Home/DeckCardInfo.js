@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function DeckCardInfo({ deck, handleDeleteDeck }) {
   return (
-    <div className='card' key={deck.id}>
+    <div className='card col-12' key={deck.id}>
       <div className='card-body'>
         <div className='row'>
           <h5 className='col-8 '>{deck.name}</h5>
